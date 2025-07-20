@@ -1,5 +1,4 @@
 # Global code owners - these users will be automatically requested for review on all PRs
-* @isaac
 
 # Frontend specific
 /frontend/ @isaac
