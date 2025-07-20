@@ -1,7 +1,13 @@
 # PowerShell script to set up branch protection rules
 # Run this if the automated workflow doesn't work due to permissions
 
+param(
+    [int]$MinReviewers = 1,
+    [switch]$RequireCodeOwners = $true
+)
+
 Write-Host "Setting up branch protection for WANFAM repository..." -ForegroundColor Green
+Write-Host "Configuration: Min Reviewers = $MinReviewers, Require Code Owners = $RequireCodeOwners" -ForegroundColor Yellow
 
 # Check if gh CLI is installed
 try {
@@ -30,9 +36,9 @@ $protectionRules = @{
     }
     enforce_admins = $false
     required_pull_request_reviews = @{
-        required_approving_review_count = 1
+        required_approving_review_count = $MinReviewers
         dismiss_stale_reviews = $true
-        require_code_owner_reviews = $true
+        require_code_owner_reviews = $RequireCodeOwners
         require_last_push_approval = $false
     }
     restrictions = $null
@@ -47,12 +53,16 @@ try {
     Write-Host "✅ Branch protection rules have been set up successfully!" -ForegroundColor Green
     Write-Host ""
     Write-Host "Current protection rules:" -ForegroundColor Cyan
-    Write-Host "- Require 1 approving review" -ForegroundColor White
+    Write-Host "- Require $MinReviewers approving review(s)" -ForegroundColor White
     Write-Host "- Require status checks (validate-changes)" -ForegroundColor White
-    Write-Host "- Require code owner reviews" -ForegroundColor White
+    Write-Host "- Require code owner reviews: $RequireCodeOwners" -ForegroundColor White
     Write-Host "- Dismiss stale reviews" -ForegroundColor White
     Write-Host "- Require conversation resolution" -ForegroundColor White
     Write-Host "- Block force pushes and deletions" -ForegroundColor White
+    Write-Host ""
+    Write-Host "Usage examples:" -ForegroundColor Cyan
+    Write-Host "  .\setup-branch-protection.ps1 -MinReviewers 2" -ForegroundColor Gray
+    Write-Host "  .\setup-branch-protection.ps1 -MinReviewers 1 -RequireCodeOwners:`$false" -ForegroundColor Gray
 } catch {
     Write-Host "❌ Failed to set up branch protection rules:" -ForegroundColor Red
     Write-Host $_.Exception.Message -ForegroundColor Red

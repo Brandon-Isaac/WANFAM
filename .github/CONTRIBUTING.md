@@ -21,10 +21,22 @@ The following rules are enforced on the `main` branch:
 - ❌ No deletions allowed
 
 ### Automated Features
-- **Auto-assignment**: PRs are automatically assigned reviewers based on CODEOWNERS
+- **Smart reviewer assignment**: Automatically assigns reviewers based on CODEOWNERS and repository variables
 - **Auto-labeling**: PRs are labeled based on changed files
 - **Validation**: Code quality and specific file format checks
 - **Templates**: Standardized PR templates guide contributors
+- **Flexible configuration**: No single points of failure, easily scalable reviewer management
+
+## Reviewer Assignment
+
+This repository uses an intelligent reviewer assignment system:
+
+1. **CODEOWNERS-based**: Reviewers are assigned based on files changed
+2. **Configurable fallbacks**: Repository variables provide backup reviewers
+3. **Smart filtering**: PR authors are excluded, limits are respected
+4. **Multi-team support**: Different teams can own different parts of the codebase
+
+For detailed information about reviewer management, see [REVIEWER-MANAGEMENT.md](REVIEWER-MANAGEMENT.md).
 
 ## Getting Started
 
@@ -67,5 +79,6 @@ The following rules are enforced on the `main` branch:
 
 For questions about the review process or repository guidelines, please:
 - Open an issue for general questions
-- Contact @isaac for urgent matters
+- Check [REVIEWER-MANAGEMENT.md](REVIEWER-MANAGEMENT.md) for reviewer configuration
+- Contact code owners for area-specific questions (see CODEOWNERS file)
 - Check existing documentation and PRs for examples
