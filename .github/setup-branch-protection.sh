@@ -22,7 +22,7 @@ fi
 echo "Setting up branch protection rules for 'main' branch..."
 
 # Enable branch protection with required reviews
-gh api repos/:owner/:repo/branches/main/protection \
+gh api repos/:owner/:repo/branches/master/protection \
   --method PUT \
   --field required_status_checks='{"strict":true,"contexts":["validate-changes"]}' \
   --field enforce_admins=false \

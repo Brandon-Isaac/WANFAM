@@ -12,7 +12,7 @@ All pull requests to this repository MUST:
 5. **Resolve all conversations** - All review comments must be addressed
 
 ### Branch Protection Rules
-The following rules are enforced on the `main` branch:
+The following rules are enforced on the `master` branch:
 - ✅ Require pull request reviews before merging
 - ✅ Require status checks to pass before merging
 - ✅ Require conversation resolution before merging

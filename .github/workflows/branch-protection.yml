@@ -4,7 +4,6 @@ on:
   workflow_dispatch:  # Manual trigger
   push:
     branches:
-      - main
       - master
     paths:
       - '.github/workflows/branch-protection.yml'
@@ -21,7 +20,7 @@ jobs:
             const { owner, repo } = context.repo;
             
             // Branches to protect
-            const branchesToProtect = ['main', 'master'];
+            const branchesToProtect = ['master'];
             
             for (const branch of branchesToProtect) {
               try {

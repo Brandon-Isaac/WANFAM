@@ -122,11 +122,11 @@ This workflow creates the `validate-changes` status check that's required for me
 
 **Triggers:** 
 - Manual workflow dispatch
-- Push to main/master branch (when workflow file changes)
+- Push to master branch (when workflow file changes)
 
 **Protection Rules Applied:**
 ```yaml
-Protected Branches: main, master (if they exist)
+Protected Branches: master
 
 Required Status Checks:
   - validate-changes (from pr-validation.yml)
@@ -151,7 +151,7 @@ Restrictions:
    ```bash
    git add .github/
    git commit -m "feat: add comprehensive GitHub workflows"
-   git push origin main
+   git push origin master
    ```
 
 2. **Configure reviewers** (choose one method):
@@ -171,15 +171,15 @@ Restrictions:
 
 3. **Enable branch protection:**
    ```powershell
-   # Option 1: Automated (protects main and master if they exist)
+   # Option 1: Automated (protects master when workflows pushed)
    # Push workflows, automatic setup attempts
 
-   # Option 2: Manual PowerShell (both main and master)
+   # Option 2: Manual PowerShell (master branch)
    .\setup-branch-protection.ps1
 
-   # Option 3: Protect only specific branches
+   # Option 3: Protect specific branches
    .\setup-branch-protection.ps1 -Branches @("master")
-   .\setup-branch-protection.ps1 -Branches @("main", "develop")
+   .\setup-branch-protection.ps1 -Branches @("master", "develop")
 
    # Option 4: Custom configuration
    .\setup-branch-protection.ps1 -MinReviewers 2 -RequireCodeOwners:$true
@@ -298,4 +298,4 @@ For workflow issues:
 
 ---
 
-*This automation system ensures every pull request is properly reviewed, validated, and documented before merging into the main branch.*
+*This automation system ensures every pull request is properly reviewed, validated, and documented before merging into the master branch.*

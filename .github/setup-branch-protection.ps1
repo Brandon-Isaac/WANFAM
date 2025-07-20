@@ -4,7 +4,7 @@
 param(
     [int]$MinReviewers = 1,
     [switch]$RequireCodeOwners = $true,
-    [string[]]$Branches = @("main", "master")
+    [string[]]$Branches = @("master")
 )
 
 Write-Host "Setting up branch protection for WANFAM repository..." -ForegroundColor Green
