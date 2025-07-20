@@ -1,0 +1,79 @@
+name: Auto Assign PR Reviewers
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Auto assign reviewers
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+            const prAuthor = context.payload.pull_request.user.login;
+            
+            // List of potential reviewers (exclude PR author)
+            const allReviewers = ['isaac']; // Add more usernames as needed
+            const reviewers = allReviewers.filter(reviewer => reviewer !== prAuthor);
+            
+            if (reviewers.length > 0) {
+              try {
+                await github.rest.pulls.requestReviewers({
+                  owner,
+                  repo,
+                  pull_number: prNumber,
+                  reviewers: reviewers.slice(0, 2) // Request max 2 reviewers
+                });
+                
+                console.log(`Requested reviews from: ${reviewers.slice(0, 2).join(', ')}`);
+              } catch (error) {
+                console.log('Failed to request reviewers:', error.message);
+              }
+            }
+
+      - name: Add labels
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+            
+            // Auto-label based on changed files
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner,
+              repo,
+              pull_number: prNumber
+            });
+            
+            const labels = [];
+            
+            const hasUserFiles = files.some(file => file.filename.startsWith('users/'));
+            const hasFrontendFiles = files.some(file => file.filename.startsWith('frontend/'));
+            const hasBackendFiles = files.some(file => file.filename.startsWith('backend/'));
+            const hasDocFiles = files.some(file => file.filename.endsWith('.md'));
+            
+            if (hasUserFiles) labels.push('user-data');
+            if (hasFrontendFiles) labels.push('frontend');
+            if (hasBackendFiles) labels.push('backend');
+            if (hasDocFiles) labels.push('documentation');
+            
+            if (labels.length > 0) {
+              try {
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number: prNumber,
+                  labels: labels
+                });
+                console.log(`Added labels: ${labels.join(', ')}`);
+              } catch (error) {
+                console.log('Failed to add labels:', error.message);
+              }
+            }

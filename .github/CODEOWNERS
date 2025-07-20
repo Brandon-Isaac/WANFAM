@@ -1,0 +1,23 @@
+# Global code owners - these users will be automatically requested for review on all PRs
+* @isaac
+
+# Frontend specific
+/frontend/ @isaac
+
+# Backend specific  
+/backend/ @isaac
+
+# User data files
+/users/ @isaac
+
+# Documentation
+*.md @isaac
+/docs/ @isaac
+
+# GitHub workflows and configuration
+/.github/ @isaac
+
+# Configuration files
+package.json @isaac
+*.config.js @isaac
+*.config.json @isaac
