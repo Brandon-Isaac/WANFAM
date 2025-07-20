@@ -150,6 +150,6 @@ No hardware/IoT integration, no native mobile app, no real-time GPS, no financia
 
 ## Conclusion
 
-Wanfam CLCS aims to bridge the digital divide in Kenya's livestock sector by providing an accessible, affordable, and user-friendly management system tailored for small to medium-scale farmers. The project combines robust technical implementation, user-centered design, and a focus on real-world impact.
+WANFAM CLCS aims to bridge the digital divide in Kenya's livestock sector by providing an accessible, affordable, and user-friendly management system tailored for small to medium-scale farmers. The project combines robust technical implementation, user-centered design, and a focus on real-world impact.
 
 ---
