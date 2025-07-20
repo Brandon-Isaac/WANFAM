@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanfam SLHTS - Project Proposal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .presentation-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            background: white;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: #34495e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            color: #2980b9;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        p, li {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        ul {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .team-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .tech-item {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .timeline-item {
+            background: #f1f8e9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid #4caf50;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.1);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .problem-item {
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #f44336;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .solution-item {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-counter">1/12</div>
+            <div class="slide-content">
+                <div class="logo">WANFAM</div>
+                <h1>Smart Livestock Health & Tracking System</h1>
+                <h3>(SLHTS)</h3>
+                <div class="team-info">
+                    <p><strong>Presented by:</strong></p>
+                    <p>Isaac Datch (C026-01-2329/2022)</p>
+                    <p>Alvin Kiptoo (C026-01-0958/2022)</p>
+                    <br>
+                    <p><strong>Supervisor:</strong> Dr. Moso</p>
+                    <p><strong>Course:</strong> Bachelor of Science in Computer Science</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Project Overview -->
+        <div class="slide">
+            <div class="slide-counter">2/12</div>
+            <div class="slide-content">
+                <h2>Project Overview</h2>
+                <div class="highlight">
+                    <h3>Main Objective</h3>
+                    <p>To develop a comprehensive, affordable, and user-friendly web-based livestock management system specifically tailored for small to medium-scale farmers in Kenya.</p>
+                </div>
+                <ul>
+                    <li><strong>Target Users:</strong> Small to medium-scale farmers (5-50 animals)</li>
+                    <li><strong>Project Type:</strong> Web Application Development</li>
+                    <li><strong>Duration:</strong> 11 Weeks</li>
+                    <li><strong>Platform:</strong> Progressive Web Application</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Problem Statement -->
+        <div class="slide">
+            <div class="slide-counter">3/12</div>
+            <div class="slide-content">
+                <h2>The Problem</h2>
+                <div class="problem-grid">
+                    <div class="problem-item">
+                        <h3>Cost Barriers</h3>
+                        <p>Existing systems require expensive hardware that small-scale farmers cannot afford</p>
+                    </div>
+                    <div class="problem-item">
+                        <h3>Complexity Issues</h3>
+                        <p>Current solutions have steep learning curves and assume high technical literacy</p>
+                    </div>
+                    <div class="problem-item">
+                        <h3>Limited Offline Support</h3>
+                        <p>Most systems fail when internet connectivity is poor or intermittent</p>
+                    </div>
+                    <div class="problem-item">
+                        <h3>Language Barriers</h3>
+                        <p>Most solutions are only available in English, limiting adoption</p>
+                    </div>
+                </div>
+                <p><strong>Result:</strong> 78% of small-scale farmers still rely on paper-based systems</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Market Gap Analysis -->
+        <div class="slide">
+            <div class="slide-counter">4/12</div>
+            <div class="slide-content">
+                <h2>Market Gap Analysis</h2>
+                <h3>Current Solutions vs. Market Needs</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0;">
+                    <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: #e74c3c;">iCow</h3>
+                        <p><strong>Strengths:</strong> SMS reminders, low-cost</p>
+                        <p><strong>Gap:</strong> Limited record-keeping, no productivity tracking</p>
+                    </div>
+                    <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: #e74c3c;">Cowlar</h3>
+                        <p><strong>Strengths:</strong> Comprehensive tracking</p>
+                        <p><strong>Gap:</strong> Hardware-dependent, expensive</p>
+                    </div>
+                    <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: #e74c3c;">Herdwatch</h3>
+                        <p><strong>Strengths:</strong> User-friendly</p>
+                        <p><strong>Gap:</strong> Not adapted for Kenyan conditions</p>
+                    </div>
+                </div>
+                <div class="highlight">
+                    <p><strong>Market Opportunity:</strong> 2.5M small-scale farmers with no comprehensive, affordable solution</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Our Solution -->
+        <div class="slide">
+            <div class="slide-counter">5/12</div>
+            <div class="slide-content">
+                <h2>Wanfam SLHTS Solution</h2>
+                <div class="solution-grid">
+                    <div class="solution-item">
+                        <h3>Integrated Health Management</h3>
+                        <p>Vaccination tracking, treatment records, and health observations in one interface</p>
+                    </div>
+                    <div class="solution-item">
+                        <h3>Smart Feeding Scheduler</h3>
+                        <p>Automated reminders with cost tracking and ROI calculation</p>
+                    </div>
+                    <div class="solution-item">
+                        <h3>Productivity Analysis</h3>
+                        <p>Track milk production, breeding success, and weight gain against costs</p>
+                    </div>
+                    <div class="solution-item">
+                        <h3>Accessibility First</h3>
+                        <p>Bilingual support (English/Swahili) with offline functionality</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Key Features -->
+        <div class="slide">
+            <div class="slide-counter">6/12</div>
+            <div class="slide-content">
+                <h2>Key Features & Innovation</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 30px 0;">
+                    <div>
+                        <h3>Core Features</h3>
+                        <ul>
+                            <li>Livestock profile management</li>
+                            <li>Health tracking & vaccination schedules</li>
+                            <li>Feeding schedule & cost management</li>
+                            <li>Productivity tracking & analytics</li>
+                            <li>Automated notifications & reminders</li>
+                            <li>Data export for loans/insurance</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Unique Advantages</h3>
+                        <ul>
+                            <li>No hardware requirements</li>
+                            <li>Works offline with sync capability</li>
+                            <li>Bilingual interface (EN/SW)</li>
+                            <li>Progressive Web App technology</li>
+                            <li>Designed for basic smartphones</li>
+                            <li>Integrated ROI calculations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Technical Architecture -->
+        <div class="slide">
+            <div class="slide-counter">7/12</div>
+            <div class="slide-content">
+                <h2>Technical Architecture</h2>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <h3>Frontend</h3>
+                        <ul>
+                            <li>React.js</li>
+                            <li>Progressive Web App</li>
+                            <li>Responsive Design</li>
+                            <li>Service Workers</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Backend</h3>
+                        <ul>
+                            <li>Node.js</li>
+                            <li>Express.js</li>
+                            <li>RESTful APIs</li>
+                            <li>JWT Authentication</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Database</h3>
+                        <ul>
+                            <li>MongoDB</li>
+                            <li>Cloud Hosting</li>
+                            <li>Flexible Schema</li>
+                            <li>Optimized Queries</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Deployment</h3>
+                        <ul>
+                            <li>Vercel (Frontend)</li>
+                            <li>Heroku/Render (Backend)</li>
+                            <li>MongoDB Atlas</li>
+                            <li>EmailJS (Notifications)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Project Timeline -->
+        <div class="slide">
+            <div class="slide-counter">8/12</div>
+            <div class="slide-content">
+                <h2>11-Week Project Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Weeks 1-2</h3>
+                        <p>Planning & Research</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Week 3</h3>
+                        <p>UI/UX Design</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Weeks 4-5</h3>
+                        <p>Backend Development</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Weeks 6-7</h3>
+                        <p>Frontend Development</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Weeks 8-9</h3>
+                        <p>Integration & Testing</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Week 10</h3>
+                        <p>Deployment & Documentation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Week 11</h3>
+                        <p>Final Presentation</p>
+                    </div>
+                </div>
+                <div class="highlight">
+                    <p><strong>Development Approach:</strong> Agile methodology with iterative development and continuous user feedback</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Team Structure -->
+        <div class="slide">
+            <div class="slide-counter">9/12</div>
+            <div class="slide-content">
+                <h2>Team Structure & Responsibilities</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0;">
+                    <div style="background: #e3f2fd; padding: 30px; border-radius: 15px;">
+                        <h3>Isaac Datch</h3>
+                        <p><strong>Role:</strong> Backend Developer & System Architecture</p>
+                        <ul>
+                            <li>API development</li>
+                            <li>Database design</li>
+                            <li>Authentication systems</li>
+                            <li>System architecture</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+                    <div style="background: #f3e5f5; padding: 30px; border-radius: 15px;">
+                        <h3>Alvin Kiptoo</h3>
+                        <p><strong>Role:</strong> Frontend Developer & UI/UX Designer</p>
+                        <ul>
+                            <li>User interface development</li>
+                            <li>User experience design</li>
+                            <li>Frontend integration</li>
+                            <li>Testing & debugging</li>
+                            <li>Documentation</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Collaboration Tools:</strong> Git/GitHub, Regular meetings, Shared documentation</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Expected Outcomes -->
+        <div class="slide">
+            <div class="slide-counter">10/12</div>
+            <div class="slide-content">
+                <h2>Expected Outcomes & Impact</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                    <div>
+                        <h3>Technical Deliverables</h3>
+                        <ul>
+                            <li>Fully functional web application</li>
+                            <li>Responsive design across devices</li>
+                            <li>Comprehensive documentation</li>
+                            <li>Complete source code repository</li>
+                            <li>User manual and training materials</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Success Metrics</h3>
+                        <ul>
+                            <li>99%+ system uptime</li>
+                            <li><3 second load times</li>
+                            <li>50+ farmers in pilot testing</li>
+                            <li>4.0+ user satisfaction rating</li>
+                            <li>80% feature utilization rate</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight">
+                    <h3>Long-term Impact</h3>
+                    <ul>
+                        <li>Improved livestock health outcomes</li>
+                        <li>Enhanced farmer decision-making capabilities</li>
+                        <li>Increased digital literacy in rural communities</li>
+                        <li>Better access to financial services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Budget & Resources -->
+        <div class="slide">
+            <div class="slide-counter">11/12</div>
+            <div class="slide-content">
+                <h2>Budget & Resources</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 30px 0;">
+                    <div>
+                        <h3>Cost-Effective Approach</h3>
+                        <ul>
+                            <li><strong>Cloud Services:</strong> Free tiers (MongoDB Atlas, Vercel, Heroku)</li>
+                            <li><strong>Development Tools:</strong> Free/student licenses</li>
+                            <li><strong>Total Budget:</strong> Minimal operational costs</li>
+                            <li><strong>Scalable:</strong> Pay-as-you-grow pricing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Risk Management</h3>
+                        <ul>
+                            <li>Free tier limitations mitigation</li>
+                            <li>Backup deployment options</li>
+                            <li>Alternative service providers</li>
+                            <li>Conservative time estimates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight">
+                    <p><strong>Sustainability:</strong> Low operational costs enable long-term project viability and potential for future commercialization</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Thank You -->
+        <div class="slide">
+            <div class="slide-counter">12/12</div>
+            <div class="slide-content">
+                <div class="logo">WANFAM</div>
+                <h1>Thank You</h1>
+                <h3>Questions & Discussion</h3>
+                <div class="team-info" style="margin-top: 50px;">
+                    <p><strong>Contact Information:</strong></p>
+                    <p>Isaac Datch - C026-01-2329/2022</p>
+                    <p>Alvin Kiptoo - C026-01-0958/2022</p>
+                    <br>
+                    <p><strong>Supervisor:</strong> Dr. Moso</p>
+                    <br>
+                    <p style="font-size: 1.1rem; color: #2980b9;"><em>"Empowering Kenyan farmers through accessible technology"</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Next</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Initialize
+        document.getElementById('prevBtn').disabled = true;
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+        
+        // Touch support for mobile
+        let startX = 0;
+        document.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', e => {
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) changeSlide(1);
+                else changeSlide(-1);
+            }
+        });
+    </script>
+</body>
+</html>
