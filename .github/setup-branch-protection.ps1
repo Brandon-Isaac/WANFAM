@@ -3,11 +3,13 @@
 
 param(
     [int]$MinReviewers = 1,
-    [switch]$RequireCodeOwners = $true
+    [switch]$RequireCodeOwners = $true,
+    [string[]]$Branches = @("main", "master")
 )
 
 Write-Host "Setting up branch protection for WANFAM repository..." -ForegroundColor Green
 Write-Host "Configuration: Min Reviewers = $MinReviewers, Require Code Owners = $RequireCodeOwners" -ForegroundColor Yellow
+Write-Host "Branches to protect: $($Branches -join ', ')" -ForegroundColor Yellow
 
 # Check if gh CLI is installed
 try {
@@ -26,7 +28,7 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-Write-Host "Setting up branch protection rules for 'main' branch..." -ForegroundColor Blue
+Write-Host "Setting up branch protection rules..." -ForegroundColor Blue
 
 # Create the protection rules JSON
 $protectionRules = @{
@@ -47,12 +49,37 @@ $protectionRules = @{
     required_conversation_resolution = $true
 } | ConvertTo-Json -Depth 3
 
+# Apply protection rules to each branch
+foreach ($branch in $Branches) {
+    Write-Host "Setting up protection for branch: $branch" -ForegroundColor Cyan
+    
+    # Check if branch exists
+    $branchExists = $false
+    try {
+        $null = gh api "repos/:owner/:repo/branches/$branch" 2>$null
+        $branchExists = $true
+    } catch {
+        Write-Host "⚠️ Branch '$branch' does not exist, skipping..." -ForegroundColor Yellow
+        continue
+    }
+    
+    if ($branchExists) {
+        try {
+            $protectionRules | gh api "repos/:owner/:repo/branches/$branch/protection" --method PUT --input -
+            Write-Host "✅ Branch protection rules set up successfully for '$branch'!" -ForegroundColor Green
+        } catch {
+            Write-Host "❌ Failed to set up branch protection for '$branch':" -ForegroundColor Red
+            Write-Host $_.Exception.Message -ForegroundColor Red
+        }
+    }
+}
+
 # Apply the protection rules
 try {
-    $protectionRules | gh api repos/:owner/:repo/branches/main/protection --method PUT --input -
-    Write-Host "✅ Branch protection rules have been set up successfully!" -ForegroundColor Green
     Write-Host ""
-    Write-Host "Current protection rules:" -ForegroundColor Cyan
+    Write-Host "🎉 Branch protection setup completed!" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "Current protection rules applied to: $($Branches -join ', ')" -ForegroundColor Cyan
     Write-Host "- Require $MinReviewers approving review(s)" -ForegroundColor White
     Write-Host "- Require status checks (validate-changes)" -ForegroundColor White
     Write-Host "- Require code owner reviews: $RequireCodeOwners" -ForegroundColor White
@@ -61,8 +88,10 @@ try {
     Write-Host "- Block force pushes and deletions" -ForegroundColor White
     Write-Host ""
     Write-Host "Usage examples:" -ForegroundColor Cyan
+    Write-Host "  .\setup-branch-protection.ps1" -ForegroundColor Gray
     Write-Host "  .\setup-branch-protection.ps1 -MinReviewers 2" -ForegroundColor Gray
-    Write-Host "  .\setup-branch-protection.ps1 -MinReviewers 1 -RequireCodeOwners:`$false" -ForegroundColor Gray
+    Write-Host "  .\setup-branch-protection.ps1 -Branches @('main')" -ForegroundColor Gray
+    Write-Host "  .\setup-branch-protection.ps1 -Branches @('master', 'develop')" -ForegroundColor Gray
 } catch {
     Write-Host "❌ Failed to set up branch protection rules:" -ForegroundColor Red
     Write-Host $_.Exception.Message -ForegroundColor Red

@@ -122,10 +122,12 @@ This workflow creates the `validate-changes` status check that's required for me
 
 **Triggers:** 
 - Manual workflow dispatch
-- Push to main branch (when workflow file changes)
+- Push to main/master branch (when workflow file changes)
 
 **Protection Rules Applied:**
 ```yaml
+Protected Branches: main, master (if they exist)
+
 Required Status Checks:
   - validate-changes (from pr-validation.yml)
   - Strict mode enabled
@@ -169,13 +171,17 @@ Restrictions:
 
 3. **Enable branch protection:**
    ```powershell
-   # Option 1: Automated (requires workflow to run)
+   # Option 1: Automated (protects main and master if they exist)
    # Push workflows, automatic setup attempts
 
-   # Option 2: Manual PowerShell
+   # Option 2: Manual PowerShell (both main and master)
    .\setup-branch-protection.ps1
 
-   # Option 3: Custom configuration
+   # Option 3: Protect only specific branches
+   .\setup-branch-protection.ps1 -Branches @("master")
+   .\setup-branch-protection.ps1 -Branches @("main", "develop")
+
+   # Option 4: Custom configuration
    .\setup-branch-protection.ps1 -MinReviewers 2 -RequireCodeOwners:$true
    ```
 
