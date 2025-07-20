@@ -2,7 +2,7 @@
 ## Project Team
 
 - **Isaac Datch** (C026-01-2329/2022)  
-    [LinkedIn](hhttps://www.linkedin.com/in/isaac-datch-947067288/) | [GitHub](https://github.com/Brandon-Isaac)
+    [LinkedIn](https://www.linkedin.com/in/isaac-datch-947067288/) | [GitHub](https://github.com/Brandon-Isaac)
 
 - **Alvin Kiptoo** (C026-01-0958/2022)  
     [LinkedIn](https://www.linkedin.com/in/alvinkiptoo) | [GitHub](https://github.com/alvinkiptoo)
