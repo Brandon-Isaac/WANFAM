@@ -4,7 +4,7 @@
 - **Isaac Datch**  
     [LinkedIn](https://www.linkedin.com/in/isaac-datch-947067288/) | [GitHub](https://github.com/Brandon-Isaac)
 
-- **Alvin Kiptoo** 
+- ** Kiptoo Alvin** 
     [LinkedIn](https://www.linkedin.com/in/alvin-kiptoo-865756282/) | [GitHub](https://github.com/Murphy1960)
 
 ---
