@@ -24,7 +24,14 @@ export class UserController {
   // Get user by ID
   static getUserById = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const user = await UserModel.findById(parseInt(id));
+    const parsedId = parseInt(id, 10);
+    if (isNaN(parsedId)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid user ID'
+      });
+    }
+    const user = await UserModel.findById(parsedId);
 
     if (!user) {
       return res.status(404).json({
