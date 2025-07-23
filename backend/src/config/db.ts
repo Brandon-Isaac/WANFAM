@@ -18,9 +18,20 @@ dbPool.on('connect', () => {
   console.log('Connected to PostgreSQL database');
 });
 
-dbPool.on('error', (err) => {
+dbPool.on('error', async (err) => {
   console.error('Unexpected error on idle client', err);
-  process.exit(-1);
+  await gracefulShutdown(err);
 });
 
+async function gracefulShutdown(error: Error) {
+  console.error('Shutting down gracefully due to error:', error.message);
+  try {
+    await dbPool.end();
+    console.log('Database pool has been closed.');
+  } catch (shutdownError) {
+    console.error('Error during database pool shutdown:', shutdownError);
+  } finally {
+    process.exit(1); // Exit with a non-zero status code to indicate failure
+  }
+}
 export default dbPool;
