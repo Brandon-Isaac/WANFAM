@@ -1,8 +1,16 @@
 name: Require PR Review
 
 on:
+  # Trigger on pull request events
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize]
+  # Trigger on pull request review events 
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  pull-requests: read
+  contents: read
 
 jobs:
   require-review:
