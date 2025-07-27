@@ -1,0 +1,30 @@
+name: Require PR Review
+
+on:
+  # Trigger on pull request events
+  pull_request:
+    types: [opened, synchronize]
+  # Trigger on pull request review events 
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  pull-requests: read
+  contents: read
+
+jobs:
+  require-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for reviews
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            if (reviews.data.length === 0) {
+              core.setFailed('At least one user must review this pull request.');
+            }
