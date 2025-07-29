@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
 });
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/livestock', livestockRoutes);
+app.use('/api/health', healthRoutes);
+app.use('/api/feeding', feedingRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
