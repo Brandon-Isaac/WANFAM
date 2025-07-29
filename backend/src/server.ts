@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
 
 dotenv.config();
 const app = express();
@@ -16,6 +18,12 @@ mongoose.connect(process.env.MONGODB_URI as string,
 app.get('/', (req, res) => {
   res.send('Welcome to the Wanfam API');
 });
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/livestock', livestockRoutes);
+app.use('/api/health', healthRoutes);
+app.use('/api/feeding', feedingRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
