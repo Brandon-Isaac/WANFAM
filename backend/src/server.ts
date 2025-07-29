@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import reportRoutes from './routes/reportRoutes';
+import livestockRoutes from './routes/livestockRoutes';
+import healthRoutes from './routes/healthRoutes';
+import feedingRoutes from './routes/feedingRoutes';
 
 dotenv.config();
 const app = express();
