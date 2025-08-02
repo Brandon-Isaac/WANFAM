@@ -1,11 +1,11 @@
 # WANFAM - Comprehensive Livestock Care System (CLCS)
 ## Project Team
 
-- **Isaac Datch**  
-    [LinkedIn](https://www.linkedin.com/in/isaac-datch-947067288/) | [GitHub](https://github.com/Brandon-Isaac)
+- **Isaac Datch**
+[LinkedIn](https://www.linkedin.com/in/isaac-datch-947067288/) | [GitHub](https://github.com/Brandon-Isaac)
 
 - **Kiptoo Alvin**
-    [LinkedIn](https://www.linkedin.com/in/alvin-kiptoo-865756282/) | [GitHub](https://github.com/Murphy1960)
+[LinkedIn](https://www.linkedin.com/in/alvin-kiptoo-865756282/) | [GitHub](https://github.com/Murphy1960)
 
 ---
 
